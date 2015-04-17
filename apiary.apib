@@ -1,0 +1,702 @@
+FORMAT: 1A
+HOST: http://golive.phonecorp.com/api
+
+# GOLIVE
+
+Api que alimenta o sistema mobile GOLIVE
+
+# GOLIVE API Root [/]
+
+Recurso principal da API
+
+## Informações gerais da API [GET]
+
++ Response 200 (application/json)
+
+        {"started":"2015-04-04T03:39:55.482Z","uptime":6792.189}
+
+## Group Empresas
+
+Recursos relacionados ao cadastro de empresas
+
+## Listagem [/empresas/]
+
+O Objeto empresa contém os seguintes atributos
+
++ id
++ nome
+
+### GET [GET]
+
+Lista todas as empresas
+
++ Response 200 (application/json)
+
+                [{
+                    "id": 1,
+                    "nome": "Empresa 1"
+                },
+                {
+                    "id": 2,
+                    "nome": "Empresa 2"
+                }]
+
+### POST [POST]
+
+Cadastra uma nova empresa
+
++ Request (application/json)
+
+            {
+                "nome": "Nome da empresa"
+            }
+
++ Response 201
+
+    + Headers
+            
+            Location: /empresas/1
+                
+## Detalhes [/empresas/{empresa_id}]
+
++ Parameters
+    + empresa_id (required, number, `1`) ... id da empresa integer
+
+### GET [GET]
+
+Carrega todos os detalhes da empresa selecionada
+
++ Response 200 (application/json)
+        
+        {
+            "id": 1,
+            "nome": "Empresa 1"
+        }
+
+### PUT [PUT]
+
+Atualiza os dados da empresa
+
++ Request (application/json)
+
+            {
+                "nome": "Nome da empresa"
+            }
+
++ Response 200 (application/json)
+        
+        {
+            "id": 1,
+            "nome": "Empresa 1"
+        }
+
+### DELETE [DELETE]
+
+Apaga uma empresa
+
++ Response 204
+
+
+## Group Noticias
+
+Recursos relacionados ao cadastro de noticias
+
+## Listagem [/{empresaId}/noticias/{?data}]
+
+O Objeto noticia contém os seguintes atributos
+
++ id
++ titulo
++ noticia
++ data
++ empresaId
+
++ Parameters
+    + empresaId (required, number, `1`) ... id da empresa integer
+    + data (optional, date, `04-04-2015`) ... filtrar as noticias pela data
+
+### GET [GET]
+
+Lista todas as noticias de uma determinada empresa
+
++ Response 200 (application/json)
+
+                [{
+                  "id": 1,
+                  "titulo": "noticia 1",
+                  "data": "04/04/2015",
+                  "urlFoto" : "http://www.servidor.com/1.jpg"
+                },{
+                  "id": 2,
+                  "titulo": "noticia 2",
+                  "data": "04/04/2015",
+                  "urlFoto" : "http://www.servidor.com/2.jpg"
+                }]
+                
+
+## Cadastro [/{empresaId}/noticias/]
+
++ Parameters
+    + empresaId (required, number, `1`) ... id da empresa integer
+
+### POST [POST]
+
+Cadastra uma nova noticia
+
++ Request (application/json)
+
+                {
+                  "titulo": "noticia 3",
+                  "noticia": "texto da noticia 3",
+                  "data": "04/04/2015",
+                  "empresaid": 1
+                }
+
++ Response 201
+
+    + Headers
+            
+            Location: /noticias/3
+            
+
+## Detalhes [/{empresaId}/noticias/{noticiaId}]
+
++ Parameters
+    + noticiaId (required, number, `1`) ... id da noticia integer
+    + empresaId (required, number, `1`) ... id da empresa integer
+    
+
+### GET [GET]
+
+Carrega todos os detalhes da noticia selecionada
+
++ Response 200 (application/json)
+        
+            {
+                "titulo": "noticia 1",
+                "noticia": "texto da noticia 1",
+                "data": "04/04/2015",
+                "urlFoto" : "http://www.servidor.com/1.jpg"
+            }
+
+### PUT [PUT]
+
+Atualiza os dados da noticia
+
++ Request (application/json)
+
+            {
+                "titulo": "noticia 1",
+                "noticia": "texto da noticia 1",
+                "data": "04/04/2015",
+                "empresaId": 1
+            }
+
++ Response 200 (application/json)
+        
+            {
+                "titulo": "noticia 1",
+                "noticia": "texto da noticia 1",
+                "data": "04/04/2015",
+                "empresaId": 1
+            }
+
+### DELETE [DELETE]
+
+Apaga uma noticia
+
++ Response 204
+
+
+## Group Videos
+
+Recursos relacionados ao cadastro de videos
+
+## Listagem [/{empresaId}/videos/{?data}]
+
+O Objeto video contém os seguintes atributos
+
++ id
++ titulo
++ fonte
++ url
++ data
++ empresaId
+
++ Parameters
+    + empresaId (required, number, `1`) ... id da empresa integer
+    + data (optional, date, `04-04-2015`) ... filtrar os videos pela data
+
+### GET [GET]
+
+Lista todos os videos de uma determinada empresa
+
++ Response 200 (application/json)
+
+                [{
+                  "id": 1,
+                  "titulo": "video 1",
+                  "data": "04/04/2015",
+                  "fonte": "youtube",
+                  "url" : "https://www.youtube.com/watch?v=kha5M6SmXaU"
+                },{
+                  "id": 2,
+                  "titulo": "video 2",
+                  "data": "04/04/2015",
+                  "fonte": "vimeo",
+                  "urlFoto" : "https://vimeo.com/29867281"
+                }]
+                
+
+## Cadastro [/{empresaId}/videos/]
+
++ Parameters
+    + empresaId (required, number, `1`) ... id da empresa integer
+
+### POST [POST]
+
+Cadastra um novo video
+
++ Request (application/json)
+
+                {
+                  "titulo": "video 3",
+                  "data": "04/04/2015",
+                  "fonte": "vimeo",
+                  "urlFoto" : "https://vimeo.com/29867281",
+                  "empresaId" : 1
+                }
+
++ Response 201
+
+    + Headers
+            
+            Location: /videos/3
+            
+
+## Detalhes [/{empresaId}/videos/{videoId}]
+
++ Parameters
+    + empresaId (required, number, `1`) ... id da empresa integer
+    + videoId (required, number, `1`) ... id do video integer
+    
+
+### GET [GET]
+
+Carrega todos os detalhes do video selecionado
+
++ Response 200 (application/json)
+        
+            {
+                "titulo": "video 3",
+                "data": "04/04/2015",
+                "fonte": "vimeo",
+                "urlFoto" : "https://vimeo.com/29867281"
+            }
+
+### PUT [PUT]
+
+Atualiza os dados do video
+
++ Request (application/json)
+
+            {
+                "titulo": "video 3",
+                "data": "04/04/2015",
+                "fonte": "vimeo",
+                "urlFoto" : "https://vimeo.com/29867281",
+                "empresaId" : 1
+            }
+
++ Response 200 (application/json)
+        
+            {
+                "titulo": "video 3",
+                "data": "04/04/2015",
+                "fonte": "vimeo",
+                "urlFoto" : "https://vimeo.com/29867281",
+                "empresaId" : 1
+            }
+
+### DELETE [DELETE]
+
+Apaga um video
+
++ Response 204
+
+
+## Group Usuarios
+
+Recursos relacionados ao cadastro de usuarios
+
+## Listagem [/{empresaId}/usuarios/{?perfil}]
+
+O Objeto usuario contém os seguintes atributos
+
++ id
++ nome
++ foto
++ email
++ senha
++ empresaId
++ perfil
+
++ Parameters
+    + empresaId (required, number, `1`) ... id da empresa integer
+    + perfil (optional, string, `administrador`) ... filtrar os usuarios por perfil
+
+### GET [GET]
+
+Lista todos os usuarios de uma determinada empresa
+
++ Response 200 (application/json)
+
+                [{
+                  "id": 1,
+                  "nome": "John Doe",
+                  "email": "johndoe@phonecorp.com",
+                  "foto" : "http://www.servidor.com/fotosPerfil/1.jpg",
+                  "perfil": "usuario"
+                },{
+                  "id": 2,
+                  "nome": "Jane Doe",
+                  "email": "janedoe@phonecorp.com",
+                  "foto" : "http://www.servidor.com/fotosPerfil/2.jpg",
+                  "perfil": "administrador "
+                }]
+                
+
+## Cadastro [/{empresaId}/usuarios/]
+
++ Parameters
+    + empresaId (required, number, `1`) ... id da empresa integer
+
+### POST [POST]
+
+Cadastra um novo usuario
+
++ Request (application/json)
+
+                {
+                  "nome": "John Doe",
+                  "email": "johndoe@phonecorp.com",
+                  "senha": "Abc123@"
+                  "perfil": "usuario"
+                }
+
++ Response 201
+
+    + Headers
+            
+            Location: /usuarios/3
+            
+
+## Detalhes [/{empresaId}/usuarios/{usuarioId}]
+
++ Parameters
+    + usuarioId (required, number, `1`) ... id da usuario integer
+    + empresaId (required, number, `1`) ... id da empresa integer
+    
+
+### GET [GET]
+
+Carrega todos os detalhes do usuario selecionado
+
++ Response 200 (application/json)
+        
+            {
+                  "id": 1,
+                  "nome": "John Doe",
+                  "email": "johndoe@phonecorp.com",
+                  "senha": "Abc123@"
+                  "foto" : "http://www.servidor.com/fotosPerfil/1.jpg",
+                  "perfil": "usuario"
+            }
+
+### PUT [PUT]
+
+Atualiza os dados da usuario
+
++ Request (application/json)
+
+            {
+                  "id": 1,
+                  "nome": "John Doe",
+                  "email": "johndoe@phonecorp.com",
+                  "perfil": "usuario"
+            }
+
++ Response 200 (application/json)
+        
+            {
+                  "id": 1,
+                  "nome": "John Doe",
+                  "email": "johndoe@phonecorp.com",
+                  "perfil": "usuario"
+            }
+
+### DELETE [DELETE]
+
+Apaga um usuario
+
++ Response 204
+
+## Troca Senha [/{empresaId}/usuarios/{usuarioId}/trocasenha]
+
++ Parameters
+    + usuarioId (required, number, `1`) ... id da usuario integer
+    + empresaId (required, number, `1`) ... id da empresa integer
+
+### PUT [PUT]
+
+Atualiza a senha
+
++ Request (application/json)
+
+            {
+                  "id": 1,
+                  "senha": "Abc123@"
+            }
+
++ Response 200
+
+## Login [/login/]
+
+### POST [POST]
+
+Realiza a autenticação do usuário
+
++ Request (application/json)
+
+        {
+            "login": "janedoe@phonecorp.com",
+            "password": "Abc123@",
+            "remember": 1
+        }
+
++ Response 302
+
+    + Headers
+
+            Set-Cookie: _s_portal_session={cookie}; path=/; secure; HttpOnly
+            Set-Cookie: user_credentials=x; path=/; expires=Fri, 03-May-2013 03:01:54 GMT; secure; HttpOnly
+            Location: http://golive.phonecorp.com/main
+            
+            
+
+## Group Enquetes
+
+Recursos relacionados às enquetes
+
+## Listagem [/{empresaId}/enquetes/{?data}]
+
+O Objeto enquete contém os seguintes atributos
+
++ id
++ pergunta
++ empresaId
++ data
++ respostas (array[resposta]) - coleção de respostas.
+
++ Parameters
+    + empresaId (required, number, `1`) ... id da empresa integer
+    + data (optional, date, `04-04-2015`) ... filtrar as enquetes pela data
+
+### GET [GET]
+
+Lista todas as enquetes de uma determinada empresa
+
++ Response 200 (application/json)
+
+                [{
+                  "id": 1,
+                  "pergunta": "quem é o guerreiro mais forte do universo?",
+                  "data": "04/04/2015"
+                },{
+                  "id": 2,
+                  "pergunta": "como o universo foi criado?",
+                  "data": "04/04/2015"
+                }]
+                
+
+## Cadastro [/{empresaId}/enquetes/]
+
++ Parameters
+    + empresaId (required, number, `1`) ... id da empresa integer
+
+### POST [POST]
+
+Cadastra uma nova enquete
+
++ Request (application/json)
+
+                {
+                    "pergunta": "Qual sua linguagem de programação favorita?",
+                    "data": "04/04/2015",
+                    "empresaId": 1,
+                    "respostas": [
+                        {
+                            "resposta": "Swift"
+                        }, {
+                            "resposta": "Python"
+                        }, {
+                            "resposta": "Objective-C"
+                        }, {
+                            "resposta": "Ruby"
+                        }
+                    ]
+                }
+
++ Response 201
+
+    + Headers
+            
+            Location: /enquetes/3
+            
+
+## Detalhes [/{empresaId}/enquetes/{enqueteId}]
+
++ Parameters
+    + enqueteId (required, number, `1`) ... id da enquete integer
+    + empresaId (required, number, `1`) ... id da empresa integer
+    
+
+### GET [GET]
+
+Carrega todos os detalhes da enquete selecionada
+
++ Response 200 (application/json)
+        
+            {
+                "pergunta": "Qual sua linguagem de programação favorita?",
+                "data": "04/04/2015",
+                "respostas": [
+                    {
+                        "id": 1, 
+                        "resposta": "Swift",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }, {
+                        "id": 2, 
+                        "resposta": "Python",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }, {
+                        "id": 3, 
+                        "resposta": "Objective-C",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }, {
+                        "id": 4, 
+                        "resposta": "Ruby",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }
+                ]
+            }
+
+### PUT [PUT]
+
+Atualiza os dados do video
+
++ Request (application/json)
+
+            {
+                "pergunta": "Qual sua linguagem de programação favorita?",
+                "data": "04/04/2015",
+                "respostas": [
+                    {
+                        "id": 1,                    
+                        "resposta": "Swift"
+                    }, {
+                        "id": 2,
+                        "resposta": "Python"
+                    }, {
+                        "id": 3,
+                        "resposta": "Objective-C"
+                    }, {
+                        "id":4,
+                        "resposta": "Ruby"
+                    }
+                ]
+            }
+
++ Response 200 (application/json)
+        
+            {
+                "pergunta": "Qual sua linguagem de programação favorita?",
+                "data": "04/04/2015",
+                "respostas": [
+                    {
+                        "id": 1,
+                        "resposta": "Swift",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }, {
+                        "id": 2,
+                        "resposta": "Python",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }, {
+                        "id": 3,
+                        "resposta": "Objective-C",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }, {
+                        "id": 4,
+                        "resposta": "Ruby",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }
+                ]
+            }
+
+### DELETE [DELETE]
+
+Apaga uma enquete
+
++ Response 204
+
+## Votar [/enquete/votar]
+
+### POST [POST]
+
+Registra o voto do usuário
+
++ Request (application/json)
+
+        {
+            "respostaId": 1,
+            "usuarioId": 2,
+            "data": "04/04/2015"
+        }
+
++ Response 201
+
+        {
+                "pergunta": "Qual sua linguagem de programação favorita?",
+                "data": "04/04/2015",
+                "respostas": [
+                    {
+                        "id": 1,
+                        "resposta": "Swift",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }, {
+                        "id": 2,
+                        "resposta": "Python",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }, {
+                        "id": 3,
+                        "resposta": "Objective-C",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }, {
+                        "id": 4,
+                        "resposta": "Ruby",
+                        "votos": 0,
+                        "porcentagem": 0
+                    }
+                ]
+            }
