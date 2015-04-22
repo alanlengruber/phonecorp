@@ -21,8 +21,7 @@ Recursos relacionados ao controle de acesso ao sistema
 
 ### GET [GET]
 
-Busca os dados relativos a uma sessão iniciada devem ser enviados email e senha criptografada com md5
-
+Busca os dados relativos a uma sessão iniciada, deve ser enviado o token como parâmetro
 + Response 200 (application/json)
 
                 [{
@@ -33,7 +32,8 @@ Busca os dados relativos a uma sessão iniciada devem ser enviados email e senha
                 
 ### POST [POST]
 
-Realiza login do usuário
+Realiza login do usuário, devem ser enviados email e senha criptografada com md5
+
 
 + Response 200 (application/json)
 
@@ -43,94 +43,13 @@ Realiza login do usuário
 
 ### DELETE [DELETE]
 
-Realiza logoff do usuário
+Realiza logoff do usuário, deve ser enviado o token da sessão
 
 + Response 200 (application/json)
 
                 [{
                     "return": true
                 }]
-                
-## Group Empresas
-
-Recursos relacionados ao cadastro de empresas
-
-## Listagem [/empresas/]
-
-O Objeto empresa contém os seguintes atributos
-
-+ id
-+ nome
-
-### GET [GET]
-
-Lista todas as empresas
-
-+ Response 200 (application/json)
-
-                [{
-                    "id": 1,
-                    "nome": "Empresa 1"
-                },
-                {
-                    "id": 2,
-                    "nome": "Empresa 2"
-                }]
-
-### POST [POST]
-
-Cadastra uma nova empresa
-
-+ Request (application/json)
-
-            {
-                "nome": "Nome da empresa"
-            }
-
-+ Response 201
-
-    + Headers
-            
-            Location: /empresas/1
-                
-## Detalhes [/empresas/{empresa_id}]
-
-+ Parameters
-    + empresa_id (required, number, `1`) ... id da empresa integer
-
-### GET [GET]
-
-Carrega todos os detalhes da empresa selecionada
-
-+ Response 200 (application/json)
-        
-        {
-            "id": 1,
-            "nome": "Empresa 1"
-        }
-
-### PUT [PUT]
-
-Atualiza os dados da empresa
-
-+ Request (application/json)
-
-            {
-                "nome": "Nome da empresa"
-            }
-
-+ Response 200 (application/json)
-        
-        {
-            "id": 1,
-            "nome": "Empresa 1"
-        }
-
-### DELETE [DELETE]
-
-Apaga uma empresa
-
-+ Response 204
 
 
 ## Group Noticias
@@ -145,7 +64,7 @@ O Objeto noticia contém os seguintes atributos
 + titulo
 + noticia
 + data
-+ empresaId
+
 
 + Parameters
     + empresaId (required, number, `1`) ... id da empresa integer
@@ -740,3 +659,85 @@ Registra o voto do usuário
                     }
                 ]
             }
+
+                
+## Group Empresas
+
+Recursos relacionados ao cadastro de empresas
+
+## Listagem [/empresas/]
+
+O Objeto empresa contém os seguintes atributos
+
++ id
++ nome
+
+### GET [GET]
+
+Lista todas as empresas
+
++ Response 200 (application/json)
+
+                [{
+                    "id": 1,
+                    "nome": "Empresa 1"
+                },
+                {
+                    "id": 2,
+                    "nome": "Empresa 2"
+                }]
+
+### POST [POST]
+
+Cadastra uma nova empresa
+
++ Request (application/json)
+
+            {
+                "nome": "Nome da empresa"
+            }
+
++ Response 201
+
+    + Headers
+            
+            Location: /empresas/1
+                
+## Detalhes [/empresas/{empresa_id}]
+
++ Parameters
+    + empresa_id (required, number, `1`) ... id da empresa integer
+
+### GET [GET]
+
+Carrega todos os detalhes da empresa selecionada
+
++ Response 200 (application/json)
+        
+        {
+            "id": 1,
+            "nome": "Empresa 1"
+        }
+
+### PUT [PUT]
+
+Atualiza os dados da empresa
+
++ Request (application/json)
+
+            {
+                "nome": "Nome da empresa"
+            }
+
++ Response 200 (application/json)
+        
+        {
+            "id": 1,
+            "nome": "Empresa 1"
+        }
+
+### DELETE [DELETE]
+
+Apaga uma empresa
+
++ Response 204
