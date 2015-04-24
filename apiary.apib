@@ -65,10 +65,6 @@ O Objeto noticia contém os seguintes atributos
 + noticia
 + data
 
-
-+ Parameters
-    + token
-
 ### GET [GET]
 
 Lista todas as noticias de uma determinada empresa
@@ -422,23 +418,24 @@ Atualiza a senha
 
 ### POST [POST]
 
-Realiza a autenticação do usuário
+Realiza a autenticação do usuário, retorna dados do usuario, mais token JWT para autenticação na API.
+
 
 + Request (application/json)
 
         {
             "login": "janedoe@phonecorp.com",
-            "password": "Abc123@",
-            "remember": 1
+            "password": "Abc123@"
         }
 
-+ Response 302
++ Response 200
 
-    + Headers
-
-            Set-Cookie: _s_portal_session={cookie}; path=/; secure; HttpOnly
-            Set-Cookie: user_credentials=x; path=/; expires=Fri, 03-May-2013 03:01:54 GMT; secure; HttpOnly
-            Location: http://golive.phonecorp.com/main
+        {
+            "nome": "Alan Soares",
+            "id": 1,
+            "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiaWF0IjoxNDI5ODQzMzQxLCJleHAiOjE0Mjk5Mjk3NDF9.AufT4lsVAD4GirxCUwcp6qJxS5o0XUeqj8HAY3JX4RY",
+            "avatar: ""
+        }
             
             
 
